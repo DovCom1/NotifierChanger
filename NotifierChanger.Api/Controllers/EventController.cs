@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.JSInterop.Infrastructure;
+using NotifierChanger.Model.Dto;
 
 namespace NotifierChanger.Api.Controllers;
 
@@ -8,4 +8,10 @@ namespace NotifierChanger.Api.Controllers;
 public class EventController(ILogger<EventController> logger) : ControllerBase
 {
     private readonly ILogger<EventController> _logger = logger;
+
+    [HttpPost("message")]
+    public async Task<IActionResult> GetEvent([FromBody] MessageEventDto dto)
+    {
+        
+    }
 }
