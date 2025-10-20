@@ -1,8 +1,8 @@
 namespace NotifierChanger.Model.Dto;
 
 public record MessageEventDto(
-    long SenderId,
-    long ReceiverId,
+    int SenderId,
+    int ReceiverId,
     long ChatId,
     string Message,
     string SenderName,
