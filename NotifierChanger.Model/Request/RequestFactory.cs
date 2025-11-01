@@ -15,13 +15,26 @@ public class RequestFactory(IOptions<RequestDomains> options)
             _domains.WebBackend + RequestPath.IsOnline + $"/{userId}");
     }
 
-    public HttpRequestMessage CreateSendMessageRequest(MessageEventDto dto)
+    public HttpRequestMessage CreateSendMessageRequest(IEventDto dto)
     {
         var json = JsonSerializer.Serialize(dto);
+        
+        var path = RequestPath.SendMessage;
+        if (dto is CallEventDto callEventDto)
+        {
+            path = RequestPath.CallEvent;
+        }
+        else if (dto is InviteEventDto inviteEventDto)
+        {
+            path = RequestPath.InviteEvent;
+        }
+        
         return new HttpRequestMessage(HttpMethod.Post,
-            _domains.WebBackend + RequestPath.SendMessage)
+            _domains.WebBackend + path)
         {
             Content = new StringContent(json, Encoding.UTF8, "application/json")
         };
     }
+    
+    
 }

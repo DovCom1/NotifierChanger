@@ -5,5 +5,6 @@ namespace NotifierChanger.Model.Service;
 public interface IWebBackendService
 {
     Task<bool> isUserOnline(int userId);
-    Task<bool> SendMessage(MessageEventDto dto);
+    Task<bool> SendEvent(IEventDto dto);
+    
 }

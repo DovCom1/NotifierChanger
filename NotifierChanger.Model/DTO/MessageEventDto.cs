@@ -8,4 +8,4 @@ public record MessageEventDto(
     string SenderName,
     string ReceiverName,
     string ChatName,
-    DateTime CreatedAt);
+    DateTime CreatedAt) : IEventDto;

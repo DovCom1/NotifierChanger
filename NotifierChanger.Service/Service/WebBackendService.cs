@@ -17,8 +17,8 @@ public class WebBackendService(
         var response = await client.SendAsync(_requestFactory.CreateIsOnlineUserRequest(userId));
         return response.IsSuccessStatusCode;
     }
-
-    public async Task<bool> SendMessage(MessageEventDto dto)
+    
+    public async Task<bool> SendEvent(IEventDto dto)
     {
         var client = _clientFactory.CreateClient("WebBackend");
         var response = await client.SendAsync(_requestFactory.CreateSendMessageRequest(dto));
