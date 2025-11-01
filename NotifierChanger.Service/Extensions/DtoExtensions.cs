@@ -19,4 +19,28 @@ public static class DtoExtensions
             CreatedAt = dto.CreatedAt
         };
     }
+
+    public static CallEvent ToCallEvent(this CallEventDto dto)
+    {
+        return new CallEvent
+        {
+            SenderId = dto.SenderId,
+            ReceiverId = dto.ReceiverId,
+            SenderName = dto.SenderName,
+            ReceiverName = dto.ReceiverName,
+            CreatedAt = dto.CreatedAt
+        };
+    }
+    
+    public static InviteEvent ToInviteEvent(this InviteEventDto dto)
+    {
+        return new InviteEvent
+        {
+            SenderId = dto.SenderId,
+            ReceiverId = dto.ReceiverId,
+            SenderName = dto.SenderName,
+            ReceiverName = dto.ReceiverName,
+            CreatedAt = dto.CreatedAt
+        };
+    }
 }

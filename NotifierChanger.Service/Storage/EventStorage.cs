@@ -13,13 +13,13 @@ public class EventStorage(PostgresDbContext context) : IEventStorage
         await _context.AddAsync(dto.ToMessageEvent());
     }
 
-    public Task AddCallEvent(CallEventDto dto)
+    public async Task AddCallEvent(CallEventDto dto)
     {
-        await _context.AddAsync()
+        await _context.AddAsync(dto.ToCallEvent());
     }
 
-    public Task AddInviteEvent(InviteEventDto dto)
+    public async Task AddInviteEvent(InviteEventDto dto)
     {
-        throw new NotImplementedException();
+        await _context.AddAsync(dto.ToInviteEvent());
     }
 }

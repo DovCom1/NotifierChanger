@@ -4,11 +4,11 @@ using NotifierChanger.Model.Entities;
 
 namespace NotifierChanger.Infrastructure.Configuration;
 
-public class MessageEventConfiguration : IEntityTypeConfiguration<MessageEvent>
+public class InviteEventConfiguration :  IEntityTypeConfiguration<InviteEvent>
 {
-    public void Configure(EntityTypeBuilder<MessageEvent> builder)
+    public void Configure(EntityTypeBuilder<InviteEvent> builder)
     {
-        builder.ToTable("MessageEvents");
+        builder.ToTable("InviteEvents");
         builder.HasKey(e => e.Id);
         
         builder
@@ -26,16 +26,6 @@ public class MessageEventConfiguration : IEntityTypeConfiguration<MessageEvent>
             .IsRequired();
         
         builder
-            .Property(u => u.ChatId)
-            .HasColumnName("chat_id")
-            .IsRequired();
-        
-        builder
-            .Property(u => u.ChatName)
-            .HasColumnName("chat_name")
-            .IsRequired();
-        
-        builder
             .Property(u => u.SenderName)
             .HasColumnName("sender_name")
             .IsRequired();
@@ -48,11 +38,6 @@ public class MessageEventConfiguration : IEntityTypeConfiguration<MessageEvent>
         builder
             .Property(u => u.CreatedAt)
             .HasColumnName("created_at")
-            .IsRequired();
-        
-        builder
-            .Property(u => u.Message)
-            .HasColumnName("message")
             .IsRequired();
     }
 }
