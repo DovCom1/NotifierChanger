@@ -8,7 +8,7 @@ public class CallEventConfiguration : IEntityTypeConfiguration<CallEvent>
 {
     public void Configure(EntityTypeBuilder<CallEvent> builder)
     {
-        builder.ToTable("CallEvents");
+        builder.ToTable("call_event");
         builder.HasKey(e => e.Id);
         
         builder

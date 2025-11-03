@@ -8,7 +8,7 @@ public class MessageEventConfiguration : IEntityTypeConfiguration<MessageEvent>
 {
     public void Configure(EntityTypeBuilder<MessageEvent> builder)
     {
-        builder.ToTable("MessageEvents");
+        builder.ToTable("message_event");
         builder.HasKey(e => e.Id);
         
         builder

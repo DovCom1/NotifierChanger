@@ -7,11 +7,12 @@ namespace NotifierChanger.Service.Manager;
 
 public class EventManager(
     IWebBackendService webBackendService,
+    ISessionStorage sessionStorage,
     IEventStorage eventStorage) : IEventManager
 {
     public async Task<bool> TrySendMessage(MessageEventDto dto)
     {
-        var isOnline = await webBackendService.isUserOnline(dto.ReceiverId);
+        var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
         if (isOnline)
         {
             var requestStatus = await webBackendService.SendEvent(dto);
@@ -24,7 +25,7 @@ public class EventManager(
     
     public async Task<bool> TrySendCall(CallEventDto dto)
     {
-        var isOnline = await webBackendService.isUserOnline(dto.ReceiverId);
+        var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
         if (isOnline)
         {
             var requestStatus = await webBackendService.SendEvent(dto);
@@ -37,7 +38,7 @@ public class EventManager(
 
     public async Task<bool> TrySendInvite(InviteEventDto dto)
     {
-        var isOnline = await webBackendService.isUserOnline(dto.ReceiverId);
+        var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
         if (isOnline)
         {
             var requestStatus = await webBackendService.SendEvent(dto);

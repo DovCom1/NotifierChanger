@@ -8,7 +8,7 @@ public class InviteEventConfiguration :  IEntityTypeConfiguration<InviteEvent>
 {
     public void Configure(EntityTypeBuilder<InviteEvent> builder)
     {
-        builder.ToTable("InviteEvents");
+        builder.ToTable("invite_event");
         builder.HasKey(e => e.Id);
         
         builder
