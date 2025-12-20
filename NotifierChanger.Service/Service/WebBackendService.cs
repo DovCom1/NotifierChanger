@@ -11,7 +11,7 @@ public class WebBackendService(
     private readonly IHttpClientFactory _clientFactory = clientFactory;
     private readonly RequestFactory _requestFactory =  requestFactory;
     
-    public async Task<bool> SendEvent(IEventDto dto)
+    public async Task<bool> SendEvent(MessageEventDto dto)
     {
         var client = _clientFactory.CreateClient("WebBackend");
         var response = await client.SendAsync(_requestFactory.CreateSendMessageRequest(dto));

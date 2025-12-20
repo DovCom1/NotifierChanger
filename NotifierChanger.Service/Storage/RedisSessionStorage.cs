@@ -9,9 +9,16 @@ public class RedisSessionStorage(IConnectionMultiplexer multiplexer) : ISessionS
     
     public async Task<bool> isUserOnline(Guid userId)
     {
-        var connections = await _database.StringGetAsync(UserConnsKey(userId));
-        return connections.HasValue;
+        var connections = await GetUserIds(userId.ToString());
+        return connections.Count > 0;
+    }
+    
+    private async Task<List<string>> GetUserIds(string userId)
+    {
+        return (await _database.ListRangeAsync(UserConnsKey(userId), 0, -1))
+            .Select(x => x.ToString())
+            .ToList();
     }
 
-    private string UserConnsKey(Guid userId) => $"user:{userId.ToString()}";
+    private string UserConnsKey(string userId) => $"user:{userId}";
 }

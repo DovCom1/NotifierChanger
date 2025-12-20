@@ -3,8 +3,10 @@ using NotifierChanger.Infrastructure;
 using NotifierChanger.Model.Manager;
 using NotifierChanger.Model.Request;
 using NotifierChanger.Model.Service;
+using NotifierChanger.Model.Storage;
 using NotifierChanger.Service.Manager;
 using NotifierChanger.Service.Service;
+using NotifierChanger.Service.Storage;
 using StackExchange.Redis;
 
 namespace NotifierChanger.Api.Extensions;
@@ -52,7 +54,9 @@ public static class DependencyInjection
                 return ConnectionMultiplexer.Connect(options);
             })
             .AddDbContext<PostgresDbContext>(options =>
-                options.UseNpgsql(connectionDatabase));
+                options.UseNpgsql(connectionDatabase))
+            .AddScoped<ISessionStorage, RedisSessionStorage>()
+            .AddScoped<IEventStorage, EventStorage>();
     }
 
     private static IServiceCollection AddServices(this IServiceCollection services)
