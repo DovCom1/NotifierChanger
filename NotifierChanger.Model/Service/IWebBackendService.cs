@@ -4,6 +4,6 @@ namespace NotifierChanger.Model.Service;
 
 public interface IWebBackendService
 {
-    Task<bool> SendEvent(MessageEventDto dto);
+    Task<bool> SendEvent(string jsonDto);
     
 }

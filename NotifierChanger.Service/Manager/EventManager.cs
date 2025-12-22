@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Microsoft.Extensions.Logging;
 using NotifierChanger.Model.Dto;
 using NotifierChanger.Model.Manager;
@@ -19,7 +20,8 @@ public class EventManager(
         {
             logger.LogInformation($"user {dto.ReceiverId} is online");
             logger.LogInformation($"Notification: {dto}");
-            var requestStatus = await webBackendService.SendEvent(dto);
+            var json = JsonSerializer.Serialize(dto);
+            var requestStatus = await webBackendService.SendEvent(json);
             if (!requestStatus) return false;
         }
         await eventStorage.AddMessageEvent(dto);
@@ -39,17 +41,18 @@ public class EventManager(
     //
     //     return true;
     // }
-    //
-    // public async Task<bool> TrySendInvite(InviteEventDto dto)
-    // {
-    //     var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
-    //     if (isOnline)
-    //     {
-    //         var requestStatus = await webBackendService.SendEvent(dto);
-    //         if (!requestStatus) return false;
-    //     }
-    //     await eventStorage.AddInviteEvent(dto);
-    //
-    //     return true;
-    // }
+    
+    public async Task<bool> TrySendInvite(InviteEventDto dto)
+    {
+        var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
+        if (isOnline)
+        {
+            var json = JsonSerializer.Serialize(dto);
+            var requestStatus = await webBackendService.SendEvent(json);
+            if (!requestStatus) return false;
+        }
+        await eventStorage.AddInviteEvent(dto);
+    
+        return true;
+    }
 }

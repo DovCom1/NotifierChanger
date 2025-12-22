@@ -8,13 +8,10 @@ public class WebBackendService(
     IHttpClientFactory clientFactory,
     RequestFactory requestFactory) : IWebBackendService
 {
-    private readonly IHttpClientFactory _clientFactory = clientFactory;
-    private readonly RequestFactory _requestFactory =  requestFactory;
-    
-    public async Task<bool> SendEvent(MessageEventDto dto)
+    public async Task<bool> SendEvent(string jsonDto)
     {
-        var client = _clientFactory.CreateClient("WebBackend");
-        var response = await client.SendAsync(_requestFactory.CreateSendMessageRequest(dto));
+        var client = clientFactory.CreateClient("WebBackend");
+        var response = await client.SendAsync(requestFactory.CreateSendMessageRequest(jsonDto));
         return response.IsSuccessStatusCode;
     }
 }

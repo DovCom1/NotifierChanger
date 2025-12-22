@@ -10,27 +10,15 @@ public class RequestFactory(IOptions<RequestDomains> options)
 {
     private RequestDomains _domains = options.Value;
 
-    public HttpRequestMessage CreateSendMessageRequest(MessageEventDto dto)
+    public HttpRequestMessage CreateSendMessageRequest(string jsonDto)
     {
-        Console.WriteLine($"IEvent DTO: {dto.ToString()}");
-        var json = JsonSerializer.Serialize(dto);
-        
-        // var path = RequestPath.SendMessage;
-        // if (dto is CallEventDto callEventDto)
-        // {
-        //     path = RequestPath.CallEvent;
-        // }
-        // else if (dto is InviteEventDto inviteEventDto)
-        // {
-        //     path = RequestPath.InviteEvent;
-        // }
+        Console.WriteLine($"IEvent DTO: {jsonDto}");
         var path = RequestPath.Base;
-        Console.WriteLine($"Sending message with {json}");
         
         return new HttpRequestMessage(HttpMethod.Post,
             _domains.WebBackend + path)
         {
-            Content = new StringContent(json, Encoding.UTF8, "application/json")
+            Content = new StringContent(jsonDto, Encoding.UTF8, "application/json")
         };
     }
     

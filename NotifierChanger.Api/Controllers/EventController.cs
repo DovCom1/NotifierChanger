@@ -25,10 +25,10 @@ public class EventController(
     //     return completedSuccessfully ? Ok() : BadRequest("failed to record call");
     // }
     //
-    // [HttpPost("invite")]
-    // public async Task<IActionResult> GetInviteEvent([FromBody] InviteEventDto dto)
-    // {
-    //     var completedSuccessfully = await eventManager.TrySendInvite(dto);
-    //     return completedSuccessfully ? Ok() : BadRequest("failed to record invite");
-    // }
+    [HttpPost("invite")]
+    public async Task<IActionResult> GetInviteEvent([FromBody] InviteEventDto dto)
+    {
+        var completedSuccessfully = await eventManager.TrySendInvite(dto);
+        return completedSuccessfully ? Ok() : BadRequest("failed to record invite");
+    }
 }
