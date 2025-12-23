@@ -68,7 +68,8 @@ public static class DependencyInjection
     private static IServiceCollection AddManagers(this IServiceCollection services)
     {
         return services
-            .AddScoped<IEventManager, EventManager>();
+            .AddScoped<IEventManager, EventManager>()
+            .AddScoped<IStorageManager, StorageManager>();
     }
 
     private static IServiceCollection AddHttpClientFactory(this IServiceCollection services)

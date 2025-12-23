@@ -11,9 +11,10 @@ public class EventManager(
     IWebBackendService webBackendService,
     ISessionStorage sessionStorage,
     IEventStorage eventStorage,
+    IStorageManager storageManager,
     ILogger<EventManager> logger) : IEventManager
 {
-    public async Task<bool> TrySendMessage(MessageEventDto dto)
+    public async Task<bool> TrySendEvent(EventDto dto)
     {
         var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
         if (isOnline)
@@ -24,35 +25,8 @@ public class EventManager(
             var requestStatus = await webBackendService.SendEvent(json);
             if (!requestStatus) return false;
         }
-        await eventStorage.AddMessageEvent(dto);
+        await storageManager.TryWriteEvent(dto);
 
-        return true;
-    }
-    
-    // public async Task<bool> TrySendCall(CallEventDto dto)
-    // {
-    //     var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
-    //     if (isOnline)
-    //     {
-    //         var requestStatus = await webBackendService.SendEvent(dto);
-    //         if (!requestStatus) return false;
-    //     }
-    //     await eventStorage.AddCallEvent(dto);
-    //
-    //     return true;
-    // }
-    
-    public async Task<bool> TrySendInvite(InviteEventDto dto)
-    {
-        var isOnline = await sessionStorage.isUserOnline(dto.ReceiverId);
-        if (isOnline)
-        {
-            var json = JsonSerializer.Serialize(dto);
-            var requestStatus = await webBackendService.SendEvent(json);
-            if (!requestStatus) return false;
-        }
-        await eventStorage.AddInviteEvent(dto);
-    
         return true;
     }
 }

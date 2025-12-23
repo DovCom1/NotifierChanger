@@ -4,7 +4,6 @@ namespace NotifierChanger.Model.Storage;
 
 public interface IEventStorage
 {
-    Task AddMessageEvent(MessageEventDto dto);
-    Task AddCallEvent(CallEventDto dto);
-    Task AddInviteEvent(InviteEventDto dto);
+    Task AddMessageEvent(EventDto dto);
+    Task AddInviteEvent(EventDto dto);
 }

@@ -2,7 +2,7 @@ using NotifierChanger.Model.Dto;
 
 namespace NotifierChanger.Model.Manager;
 
-public interface IEventManager
+public interface IStorageManager
 {
-    Task<bool> TrySendEvent(EventDto dto);
+    Task TryWriteEvent(EventDto dto);
 }
